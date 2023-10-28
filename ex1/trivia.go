@@ -48,9 +48,6 @@ func main () {
 		timeLimit,_ = strconv.ParseInt(os.Args[1], 10, 64)
 	}
 
-	now := time.Now()
-	start := now.Unix()
-
 	file, error := os.Open(PROBLEMS)
 
 	if error != nil {
@@ -60,8 +57,13 @@ func main () {
 	
 	reader := csv.NewReader(file)
 
-	fmt.Printf("You have %vs to complete the quiz.\n", timeLimit)
-	
+	fmt.Printf("You have %vs to complete the quiz.\nPress ENTER to begin", timeLimit)
+	var enter string
+	fmt.Scanln(&enter)
+
+	now := time.Now()
+	start := now.Unix()
+
 	for {
 		line, error := reader.Read()
 		if error == io.EOF{
