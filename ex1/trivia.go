@@ -36,9 +36,16 @@ func checkTime(start int64, timeLimit int64) {
 	cur := now.Unix()
 	if cur - start > timeLimit {
 		fmt.Println("You did not finish the quiz in time. Better luck next time!")
+		printResults()
 		os.Exit(0)
 	}
 	return
+}
+
+func printResults() {
+	fmt.Println("RESULTS:")
+	fmt.Println("Total correct:", correct)
+	fmt.Println("Total incorrect:", incorrect)
 }
 
 func main () {
@@ -54,10 +61,11 @@ func main () {
 		log.Fatal(error)
 	}
 	defer file.Close()
-	
+	defer printResults()
+
 	reader := csv.NewReader(file)
 
-	fmt.Printf("You have %vs to complete the quiz.\nPress ENTER to begin", timeLimit)
+	fmt.Printf("You will have %vs to complete the quiz.\nPress ENTER to begin", timeLimit)
 	var enter string
 	fmt.Scanln(&enter)
 
@@ -72,9 +80,5 @@ func main () {
 		checkTime(start, timeLimit)
 		askUser(line)
 	}
-	
-	fmt.Println("The quiz is over! Here are your results:")
-	fmt.Println("Total correct:", correct)
-	fmt.Println("Total incorrect:", incorrect)
 	
 }
