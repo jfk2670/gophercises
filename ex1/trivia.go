@@ -10,7 +10,7 @@ import (
 	"strconv"
 )
 
-const PROBLEMS = "/Users/jack/Downloads/git/gophercises/ex1/problems.csv"
+const PROBLEMS = "/Users/jack/Downloads/_git/gophercises/ex1/problems.csv"
 
 var correct int
 var incorrect int
@@ -31,14 +31,14 @@ func askUser(line []string) {
 	}
 }
 
-func finishedInTime(start int64, timeLimit int64) bool {
+func checkTime(start int64, timeLimit int64) {
 	now := time.Now()
-	stop := now.Unix()
-	if stop - start < timeLimit {
-		return true
-	} else {
-		return false
+	cur := now.Unix()
+	if cur - start > timeLimit {
+		fmt.Println("You did not finish the quiz in time. Better luck next time!")
+		os.Exit(0)
 	}
+	return
 }
 
 func main () {
@@ -59,21 +59,20 @@ func main () {
 	defer file.Close()
 	
 	reader := csv.NewReader(file)
+
+	fmt.Printf("You have %vs to complete the quiz.\n", timeLimit)
 	
 	for {
 		line, error := reader.Read()
 		if error == io.EOF{
 			break
 		}
-		//fmt.Println(line)
+		checkTime(start, timeLimit)
 		askUser(line)
 	}
 	
-	if finishedInTime(start, timeLimit) {
-		fmt.Println("The quiz is over! Here are your results:")
-		fmt.Println("Total correct:", correct)
-		fmt.Println("Total incorrect:", incorrect)
-	} else {
-		fmt.Println("You did not finish the quiz in time. Better luck next time!")
-	}
+	fmt.Println("The quiz is over! Here are your results:")
+	fmt.Println("Total correct:", correct)
+	fmt.Println("Total incorrect:", incorrect)
+	
 }
