@@ -2,39 +2,28 @@
 
 package main
 
-import "fmt"
-
 func solution(str string, ending string) {
 
 	// check for empty strings
-	if len(str) == 0 {
+  if len(str) == 0 || len(ending) > len(str) {
 		if len(ending) == 0 {
-			fmt.Printf("[+] \"%v\" ends with \"%v\"\n", str, ending)
-			return
+			return true
 		}
-		fmt.Printf("[X] \"%v\" does not end with \"%v\"\n", str, ending)
-		return
+		return false
 	}
 
 	if len(ending) > 0 {
-		// fmt.Println("Length of str:", len(str))
-		// fmt.Println("Length of ending:", len(ending))
 		for i := 0; i < len(ending); i++ {
-			// fmt.Println("i:", i)
-			// fmt.Printf("str[%v]: %v\n", i, string(str[len(str) - len(ending) + i]))
-			// fmt.Printf("ending[%v]: %v\n", i, string(ending[i]))
 			currCharStr := string(str[len(str) - len(ending) + i])
 			currCharEnding := string(ending[i])
 			if currCharStr == currCharEnding {
 				continue
 			} else {
-				fmt.Printf("[X] \"%v\" does not end with \"%v\"\n", str, ending)
-				return
+				return false
 			}
 		}
 	}
-	fmt.Printf("[+] \"%v\" ends with \"%v\"\n", str, ending)
-	return
+	return true
 }
 
 func main () {
