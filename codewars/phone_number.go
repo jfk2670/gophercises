@@ -1,7 +1,6 @@
 package main
 
 import "regexp"
-import "fmt"
 import "strconv"
 
 func CreatePhoneNumber(numbers [10]uint) string {
@@ -21,7 +20,6 @@ func CreatePhoneNumber(numbers [10]uint) string {
 			return "Non-int provided"
 		}
 	}
-	fmt.Println(number)
 	return number
 }
 
