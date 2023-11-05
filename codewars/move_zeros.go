@@ -1,17 +1,16 @@
 package main
 
-import "fmt"
-
 func MoveZeros(arr []int) []int {
-  newArr := []int
+  var ints, zeros []int
 
-  for i,v := range arr {
+  for _,v := range arr {
   	if v == 0 {
-  		newArr = append(newArr, v)
+  		zeros = append(zeros, v)
+  	} else {
+  		ints = append(ints, v)
   	}
   }
-  fmt.Println(newArr)
-  return 0
+  return append(ints, zeros...)
 }
 
 func main () {
